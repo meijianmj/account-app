@@ -1,3 +1,5 @@
+import java.util.Properties
+import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -18,6 +20,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // 👇 读取 local.properties 文件并注入 API Key
+        val properties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            properties.load(FileInputStream(localPropertiesFile))
+        }
+        val apiKey = properties.getProperty("DASHSCOPE_API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+        // 👆 粘贴到这里
     }
 
     buildTypes {
@@ -27,6 +38,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        // 👇 开启 BuildConfig 功能
+        buildFeatures {
+            buildConfig = true
         }
     }
     compileOptions {

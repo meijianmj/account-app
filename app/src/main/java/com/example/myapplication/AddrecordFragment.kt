@@ -603,7 +603,7 @@ class AddRecordFragment : Fragment() {
                     .build()
 
                 val genParam = GenerationParam.builder()
-                    .apiKey("sk-9e582ad8928841c6b6c5ce60c7a4b6ca") // TODO: 替换成真实的Key，别硬编码，建议放配置文件
+                    .apiKey("") // TODO: 替换成真实的Key，别硬编码，建议放配置文件
                     .model("qwen-plus")        // 可换 qwen-turbo(更快) 或 qwen-max(更准)
                     .messages(listOf(userMsg))
                     .resultFormat(GenerationParam.ResultFormat.MESSAGE)
